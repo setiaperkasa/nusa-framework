@@ -2,13 +2,38 @@
 
 namespace Nusa\Core;
 
+require_once __DIR__ . '/Middleware.php';
+
+use Nusa\Core\Middleware;
+
 class Router
 {
     protected static $routes = [];
+    protected static $middlewares = [];
 
     public static function get($path, $callback)
     {
-        self::$routes['GET'][$path] = $callback;
+        self::addRoute('GET', $path, $callback);
+    }
+
+    public static function post($path, $callback)
+    {
+        self::addRoute('POST', $path, $callback);
+    }
+
+    public static function middleware($middleware)
+    {
+        self::$middlewares[] = $middleware;
+        return new static;
+    }
+
+    protected static function addRoute($method, $path, $callback)
+    {
+        self::$routes[$method][$path] = [
+            'callback' => $callback,
+            'middlewares' => self::$middlewares
+        ];
+        self::$middlewares = []; // Reset setelah route didaftarkan
     }
 
     public static function dispatch()
@@ -17,39 +42,29 @@ class Router
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         if (isset(self::$routes[$method][$path])) {
-            $callback = self::$routes[$method][$path];
+            $route = self::$routes[$method][$path];
 
-            // Jika callback adalah controller (misal "HomeController@index")
+            // ✅ Jalankan Middleware sebelum controller dipanggil
+            foreach ($route['middlewares'] as $middleware) {
+                Middleware::run($middleware, function () {});
+            }
+
+            // ✅ Jalankan Controller
+            $callback = $route['callback'];
             if (is_string($callback) && strpos($callback, '@')) {
                 [$controllerName, $methodName] = explode('@', $callback);
-
-                // **Tambahkan namespace App\Http\Controllers**
                 $controllerClass = "App\\Http\\Controllers\\{$controllerName}";
 
-                // Cek apakah class controller benar-benar ada
                 if (!class_exists($controllerClass)) {
-                    die("❌ ERROR: Controller <b>{$controllerClass}</b> tidak ditemukan.");
+                    throw new \Exception("Controller {$controllerClass} tidak ditemukan.");
                 }
 
-                // Buat instance controller
                 $controller = new $controllerClass();
-
-                // Cek apakah method dalam controller ada
-                if (!method_exists($controller, $methodName)) {
-                    die("❌ ERROR: Method <b>{$methodName}</b> tidak ditemukan di <b>{$controllerClass}</b>.");
-                }
-
-                // Jalankan controller dan method
                 return call_user_func([$controller, $methodName]);
-            } 
-            
-            // Jika callback adalah anonymous function
-            elseif (is_callable($callback)) {
+            } elseif (is_callable($callback)) {
                 return call_user_func($callback);
-            } 
-            
-            else {
-                die("❌ ERROR: Callback tidak valid.");
+            } else {
+                throw new \Exception("Callback tidak valid.");
             }
         }
 

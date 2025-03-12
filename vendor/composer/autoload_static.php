@@ -78,6 +78,8 @@ class ComposerStaticInit2848dd5f3bd9bb0ce9b48597af9e8dc5
 
     public static $classMap = array (
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Middleware\\AuthMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthMiddleware.php',
+        'App\\Http\\Middleware\\CSRFMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CSRFMiddleware.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
