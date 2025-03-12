@@ -15,6 +15,7 @@ if (file_exists(__DIR__ . '/.env')) {
 date_default_timezone_set($_ENV['APP_TIMEZONE'] ?? 'Asia/Jakarta');
 
 // Include core framework files
+require_once __DIR__ . '/core/Controller.php';
 require_once __DIR__ . '/core/Router.php';
 
 // Initialize Router (nanti akan kita kembangkan)
