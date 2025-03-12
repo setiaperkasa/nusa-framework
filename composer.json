@@ -1,15 +1,16 @@
 {
-    "name": "setiaperkasa/nusa-framework",
+    "name": "nusa/framework",
     "description": "Nusa PHP Framework",
-    "license": "MIT",
-    "require": {
-        "php": "^8.0",
-        "vlucas/phpdotenv": "^5.5"
-    },
+    "type": "library",
     "autoload": {
         "psr-4": {
-            "Nusa\\": "core/",
-            "App\\": "app/"
+            "Nusa\\": "src/"
         }
+    },
+    "bin": [
+        "bin/nusa"
+    ],
+    "require": {
+        "php": "^8.0"
     }
 }

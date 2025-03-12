@@ -1,0 +1,7 @@
+# Jangan masukkan aplikasi ke dalam repository framework
+app/
+routes/
+views/
+public/
+storage/
+.env

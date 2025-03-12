@@ -3,7 +3,7 @@
         'name' => 'setiaperkasa/nusa-framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ce119588d9bdf4fc110f46c4b7e17ad1facc0fc7',
+        'reference' => '60bd145c5f7d37727cf0165d038e73cb6056b5c7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'setiaperkasa/nusa-framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ce119588d9bdf4fc110f46c4b7e17ad1facc0fc7',
+            'reference' => '60bd145c5f7d37727cf0165d038e73cb6056b5c7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

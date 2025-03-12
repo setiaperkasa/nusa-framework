@@ -1,10 +1,17 @@
 <?php
 
 use Nusa\Core\Router;
+use App\Http\Controllers\AuthController;
 
-Router::get('/', 'HomeController@index');
+Router::get('/register', 'AuthController@showRegister');
+Router::post('/register', 'AuthController@register');
 
-// ✅ Halaman Dashboard hanya bisa diakses setelah login
+Router::get('/login', 'AuthController@showLogin');
+Router::post('/login', 'AuthController@login');
+
+Router::get('/logout', 'AuthController@logout');
+
 Router::middleware('AuthMiddleware')->get('/dashboard', function() {
-    echo "✅ Selamat datang di Dashboard!";
+    session_start();
+    echo "✅ Selamat datang di Dashboard, " . $_SESSION['user_name'];
 });
