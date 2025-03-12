@@ -1,0 +1,8 @@
+{
+    "name": "username/nusa-framework",
+    "description": "Nusa PHP Framework",
+    "require": {
+        "php": "^8.0"
+    },
+    "license": "MIT"
+}
