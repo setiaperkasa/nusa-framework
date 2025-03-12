@@ -2,7 +2,8 @@
     "name": "username/nusa-framework",
     "description": "Nusa PHP Framework",
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "vlucas/phpdotenv": "^5.6"
     },
     "license": "MIT"
 }
