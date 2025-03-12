@@ -43,7 +43,7 @@ nusa-framework/
 ## ⚙️ Instalasi & Setup
 ### 1️⃣ **Clone Repository**
 ```bash
-git clone https://github.com/username/nusa-framework.git
+git clone https://github.com/setiaperkasa/nusa-framework.git
 cd nusa-framework
 ```
 ### 2️⃣ **Install Dependency**
