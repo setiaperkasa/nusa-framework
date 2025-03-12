@@ -1,126 +1,111 @@
-# 📌 Nusa Framework
+# Nusa PHP Framework
 
-**Nusa** adalah framework PHP ringan yang dirancang untuk keamanan tinggi dan kemudahan penggunaan. Framework ini memiliki fitur bawaan seperti **middleware**, **router**, **templating**, dan **ORM sederhana**, serta mendukung pengembangan **REST API** dengan arsitektur yang fleksibel.
+Nusa adalah framework PHP ringan yang dirancang untuk membangun aplikasi web dengan cepat dan aman. Framework ini berfokus pada kesederhanaan, fleksibilitas, dan keamanan.
+
+## 📦 Instalasi
+
+Pastikan Anda memiliki Composer terinstal, lalu jalankan perintah berikut untuk menginstal proyek baru:
+
+```bash
+composer create-project nusa/framework myapp
+cd myapp
+```
 
 ## 🚀 Fitur Utama
 
-✅ **Routing Dinamis** - Mendukung metode GET dan POST dengan parameter dinamis.  
-✅ **Middleware System** - Proteksi akses dengan Authentication dan CSRF Middleware.  
-✅ **Template Engine** - Load halaman dengan sistem template yang rapi.  
-✅ **Database ORM Sederhana** - Koneksi ke MySQL/PostgreSQL dengan model ringan.  
-✅ **CLI Generator** - Generate controller, model, dan migration dengan mudah.  
-✅ **Keamanan Tinggi** - Proteksi dari IDOR, SQL Injection, dan XSS.  
+- **Routing sederhana** dengan `Router.php`
+- **Model ORM ringan** dengan `Model.php`
+- **Dukungan Middleware** untuk proteksi aplikasi
+- **CLI `nusa` untuk generate model & controller**
+- **Struktur kode modular dan mudah dikembangkan**
 
-## 📁 Struktur Folder
-```
-nusa-framework/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   ├── Middleware/
-│   ├── Models/
-│   ├── Views/
-├── core/
-│   ├── Router.php
-│   ├── Middleware.php
-│   ├── Controller.php
-├── config/
-├── routes/
-│   ├── web.php
-├── public/
-│   ├── index.php
-├── storage/
-│   ├── logs/
-├── tests/
-├── vendor/
-├── bootstrap.php
-├── composer.json
-├── .env
-├── .gitignore
-├── README.md
-```
+## 🔧 Cara Menggunakan
 
-## ⚙️ Instalasi & Setup
-### 1️⃣ **Clone Repository**
-```bash
-git clone https://github.com/setiaperkasa/nusa-framework.git
-cd nusa-framework
-```
-### 2️⃣ **Install Dependency**
-```bash
-composer install
-```
-### 3️⃣ **Jalankan Server**
+### 1️⃣ Jalankan Server PHP
+
 ```bash
 php -S localhost:8000 -t public
 ```
-Akses di browser:
+
+Lalu buka browser dan akses:
 ```
 http://localhost:8000/
 ```
 
-## 🏗️ Penggunaan Dasar
-### 📌 1. **Menambahkan Route**
-Edit `routes/web.php`:
-```php
-use Nusa\Core\Router;
+### 2️⃣ Buat Controller Baru
 
-Router::get('/', 'HomeController@index');
+Gunakan CLI `nusa` untuk membuat controller:
+
+```bash
+php bin/nusa make:controller UserController
+```
+
+### 3️⃣ Buat Model Baru
+
+```bash
+php bin/nusa make:model User
+```
+
+### 4️⃣ Konfigurasi Database
+
+Buka file `.env.example`, lalu duplikasi dan ubah namanya menjadi `.env`. Kemudian, sesuaikan informasi database Anda:
+
+```ini
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nusa
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5️⃣ Gunakan Middleware
+
+Tambahkan middleware ke route agar bisa mengontrol akses:
+
+```php
 Router::middleware('AuthMiddleware')->get('/dashboard', function() {
-    echo "Selamat datang di Dashboard!";
+    echo "✅ Selamat datang di Dashboard!";
 });
 ```
 
-### 📌 2. **Membuat Controller Baru**
-Buat file di `app/Http/Controllers/ExampleController.php`:
-```php
-<?php
+## 📜 Struktur Direktori
 
-namespace App\Http\Controllers;
-
-use Nusa\Core\Controller;
-
-class ExampleController extends Controller {
-    public function index() {
-        echo "Halo, ini contoh controller!";
-    }
-}
 ```
-Tambahkan route:
-```php
-Router::get('/example', 'ExampleController@index');
-```
-Akses di browser: `http://localhost:8000/example`
-
-### 📌 3. **Menambahkan Middleware**
-Buat file `app/Http/Middleware/ExampleMiddleware.php`:
-```php
-<?php
-
-namespace App\Http\Middleware;
-
-class ExampleMiddleware {
-    public function handle($next) {
-        echo "Middleware dijalankan!";
-        return $next();
-    }
-}
-```
-Tambahkan middleware ke route:
-```php
-Router::middleware('ExampleMiddleware')->get('/protected', function() {
-    echo "Halaman ini dilindungi middleware.";
-});
+nusa-framework/
+│── bin/                  # CLI framework
+│   ├── nusa
+│── config/               # Konfigurasi framework
+│   ├── database.php
+│── src/                  # Inti framework
+│   ├── Nusa/
+│       ├── Core/
+│       │   ├── Controller.php
+│       │   ├── Database.php
+│       │   ├── Middleware.php
+│       │   ├── Model.php
+│       │   ├── Router.php
+│── storage/               # Penyimpanan log dan file sementara
+│── tests/                 # Unit testing
+│── vendor/                # Composer dependencies
+│── composer.json          # Konfigurasi Composer
+│── README.md              # Dokumentasi
 ```
 
-## 🌎 Kontribusi
-1. **Fork repo ini.**
-2. **Buat branch baru.**
-3. **Commit perubahan dan push ke GitHub.**
-4. **Buat pull request.**
+## 🛠 Perintah CLI yang Tersedia
 
-## 📝 Lisensi
-Framework ini menggunakan **MIT License**, artinya bebas digunakan, dimodifikasi, dan dikembangkan.
+```
+php bin/nusa make:controller NamaController  # Membuat controller baru
+php bin/nusa make:model NamaModel            # Membuat model baru
+```
+
+## 📢 Kontribusi
+
+Silakan buat **Pull Request** atau laporkan **Issue** jika menemukan bug atau ingin memberikan saran pengembangan.
+
+## 📄 Lisensi
+
+Framework ini dirilis di bawah lisensi **MIT**.
 
 ---
 📌 **Dibuat dengan ❤️ oleh Tim Rumi Setia Aplikasi**
