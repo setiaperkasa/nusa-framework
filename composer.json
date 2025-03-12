@@ -1,7 +1,8 @@
 {
-    "name": "nusa/framework",
+    "name": "setiaperkasa/nusa-framework",
     "description": "Nusa PHP Framework",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Nusa\\": "src/"
